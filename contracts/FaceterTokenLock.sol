@@ -3,7 +3,7 @@ pragma solidity 0.4.19;
 /**
  *     ╔═══  Faceter Token Lock Contract
  *  ══ ╠══   This smart-contract is used to lock the team tokens for 2 years.
- *    ═╝     It is deployed at https://etherscan.io/address/0x4695c7AC68eb86c1079c7d7D53Af2F42DB8a6799
+ *    ═╝     It is deployed at hhttps://etherscan.io/address/0x7d1efaa19817f519631e1568c725e2da19cea9bc
  *    ══     http://faceter.io
  */
 
@@ -12,7 +12,7 @@ contract ERC20Interface {
     function transfer(address _to, uint256 _value) public returns (bool success);
 }
 
-contract FaceterTokenLock {
+contract FaceterTokenLockV2 {
     address constant RECEIVER = 0x102aEe443704BBd96f31BcFCA9DA8E86f0128803;
     uint constant AMOUNT = 18750000 * 10**18;
     ERC20Interface constant FaceterToken = ERC20Interface(0x4695c7AC68eb86c1079c7d7D53Af2F42DB8a6799);
@@ -20,8 +20,8 @@ contract FaceterTokenLock {
 
     function unlock() public returns(bool) {
         uint unlockAmount = 0;
-        // Jun 1, 2018
-        if (unlockStep == 0 && now >= 1527811200) {
+        // Jul 1, 2018
+        if (unlockStep == 0 && now >= 1530403200) {
             unlockAmount = AMOUNT;
         // Oct 1, 2018
         } else if (unlockStep == 1 && now >= 1538352000) {
@@ -30,7 +30,7 @@ contract FaceterTokenLock {
         } else if (unlockStep == 2 && now >= 1546300800) {
             unlockAmount = AMOUNT;
         // Apr 1, 2019
-        } else if (unlockStep == 3 && now >= 1556668800) {
+        } else if (unlockStep == 3 && now >= 1554076800) {
             unlockAmount = AMOUNT;
         // Jul 1, 2019
         } else if (unlockStep == 4 && now >= 1561939200) {
@@ -58,7 +58,7 @@ contract FaceterTokenLock {
     }
 
     function recoverTokens(ERC20Interface _token) public returns(bool) {
-        // Do not allow to recover Faceter Token till the end of lock
+        // Don't allow recovering Faceter Token till the end of lock.
         if (_token == FaceterToken && now < 1585699200 && unlockStep != 8) {
             return false;
         }
