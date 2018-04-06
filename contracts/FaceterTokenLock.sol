@@ -15,7 +15,7 @@ contract ERC20Interface {
 contract FaceterTokenLockV2 {
     address constant RECEIVER = 0x102aEe443704BBd96f31BcFCA9DA8E86f0128803;
     uint constant AMOUNT = 18750000 * 10**18;
-    ERC20Interface constant FaceterToken = ERC20Interface(0x4695c7AC68eb86c1079c7d7D53Af2F42DB8a6799);
+    ERC20Interface constant FaceterToken = ERC20Interface(0x1ccaa0f2a7210d76e1fdec740d5f323e2e1b1672);
     uint8 public unlockStep;
 
     function unlock() public returns(bool) {
